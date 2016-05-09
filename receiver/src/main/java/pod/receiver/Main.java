@@ -17,10 +17,11 @@ import java.rmi.registry.Registry;
 public class Main {
    
     public static void main(String[] args) throws RemoteException, AlreadyBoundException {
-          Receiver receiver = new ReceiverImpl();
+          System.setProperty("java.rmi.server.hostname", "192.168.2.10");
+        Receiver receiver = new ReceiverImpl();
           
           Registry registry = LocateRegistry.createRegistry(8475);
-          registry.bind("Receiver", registry);
+          registry.bind("Receiver", receiver);
           System.out.println("Receiver ativo");
           
           //System.out.println(receiver.signup("Raul Seixas", "raul@gmail.com"));
