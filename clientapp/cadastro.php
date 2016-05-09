@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 $serverSocket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
-$address = '192.168.0.103';
+$address = '127.0.0.1';
 $port = 8483;
 $nome = $_POST['name'];
 $email = $_POST['email'];
