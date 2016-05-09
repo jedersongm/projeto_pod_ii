@@ -48,5 +48,7 @@ public class ReceiverImpl extends UnicastRemoteObject implements Receiver{
         System.out.println("Email "+email+" deslogou-se");
         return "yes";
     }
+        
+    
     
 }

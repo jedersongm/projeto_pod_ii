@@ -23,4 +23,6 @@ public interface Receiver  extends Remote{
     public String publisher(String email, String grupo, String message) throws RemoteException;
     
     public String logout(String email) throws RemoteException;
+    
+ 
 }
