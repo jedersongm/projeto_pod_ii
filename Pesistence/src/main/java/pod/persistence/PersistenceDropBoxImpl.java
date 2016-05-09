@@ -18,10 +18,12 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -34,7 +36,7 @@ public class PersistenceDropBoxImpl extends UnicastRemoteObject implements Persi
 
         private  static  final  String DROP_BOX_APP_KEY =  "z4xnzj8zoybc9q9" ; 
 	private  static  final  String DROP_BOX_APP_SECRET = "0j3bmggm21zz8e5" ;
-        private String token = "cF4cn354EFAAAAAAAAAAC46genKRazMGH7c-K2IVCrFJxxZ-pk4hvdUSNwrj_8mK";
+        private String tokenApp = "cF4cn354EFAAAAAAAAAADVmvre_goeAxjyyfTyI36_WpFXpZLtbcypo2eK3uTRcw";
 	private DbxClientV1 dbxClient;
         
     public PersistenceDropBoxImpl() throws RemoteException {
@@ -60,55 +62,82 @@ public class PersistenceDropBoxImpl extends UnicastRemoteObject implements Persi
 	}
 
 	/* returns Dropbox size in GB */
-	public long getDropboxSize() throws DbxException {
-		long dropboxSize = 0;
-		DbxAccountInfo dbxAccountInfo = dbxClient.getAccountInfo();
-		// in GB :)
-		dropboxSize = dbxAccountInfo.quota.total / 1024 / 1024 / 1024;
-		return dropboxSize;
-	}
+//	public long getDropboxSize() throws DbxException {
+//		long dropboxSize = 0;
+//		DbxAccountInfo dbxAccountInfo = dbxClient.getAccountInfo();
+//		// in GB :)
+//		dropboxSize = dbxAccountInfo.quota.total / 1024 / 1024 / 1024;
+//		return dropboxSize;
+//	}
 
-	public void uploadToDropbox(String fileName) throws DbxException,
-			IOException {
-		File inputFile = new File(fileName);
+    /**
+     *
+     * @param token
+     * @param email
+     * @param data
+     * @param nomeGrupo
+     * @param nomeUsu
+     * @param mensagem
+     * @return
+     * @throws DbxException
+     * @throws java.rmi.RemoteException
+     * @throws IOException
+     */
+    
+        @Override
+	public boolean salvar(String token, String email, Date data, String nomeGrupo, List<String> nomeUsu, String mensagem) throws DbxException, RemoteException, IOException {
+		File inputFile = new File(token + ".txt");
+                inputFile.createNewFile();
+                FileWriter fw = new FileWriter(inputFile);
+                        fw.write(email);
+                        String dataS = new SimpleDateFormat("dd/MM/yyyy - HH:mm:ss").format(data);
+                        fw.write(dataS);
+                        fw.write(nomeGrupo);
+                        fw.write("{");
+                        for (int i = 0; i < nomeUsu.size(); i++) {
+                            if (i == nomeUsu.size() - 1) {
+                                fw.write(nomeUsu.get(i) + "");
+                            } else {
+                            fw.write(nomeUsu.get(i) + ",");
+                            }
+                        }
+                        fw.write("};");
+                        fw.write(mensagem);
+                fw.close();
+
 		FileInputStream fis = new FileInputStream(inputFile);
 		try {
-			DbxEntry.File uploadedFile = dbxClient.uploadFile("/" + fileName,DbxWriteMode.add(), inputFile.length(), fis);
-			String sharedUrl = dbxClient.createShareableUrl("/" + fileName);
-			System.out.println("Uploaded: " + uploadedFile.toString() + " URL "+ sharedUrl);
+                    DbxEntry.File uploadedFile = dbxClient.uploadFile("/" + token,DbxWriteMode.add(), inputFile.length(), fis);
+                    String sharedUrl = dbxClient.createShareableUrl("/" + token);
+                    System.out.println("Uploaded: " + uploadedFile.toString() + " URL "+ sharedUrl);
 		} finally {
-			fis.close();
+                    fis.close();
 		}
+                
+                return true;
 	}
 
 	public void createFolder(String folderName) throws DbxException {
 		dbxClient.createFolder("/" + folderName);
 	}
 
-	public void listDropboxFolders(String folderPath) throws DbxException {
-		DbxEntry.WithChildren listing = dbxClient.getMetadataWithChildren(folderPath);
-		System.out.println("Files List:");
-		for (DbxEntry child : listing.children) {
-			System.out.println("	" + child.name + ": " + child.toString());
-		}
-	}
+//	public void listDropboxFolders(String folderPath) throws DbxException {
+//		DbxEntry.WithChildren listing = dbxClient.getMetadataWithChildren(folderPath);
+//		System.out.println("Files List:");
+//		for (DbxEntry child : listing.children) {
+//			System.out.println("	" + child.name + ": " + child.toString());
+//		}
+//	}
+//
+//	public void downloadFromDropbox(String fileName) throws DbxException,
+//			IOException {
+//		FileOutputStream outputStream = new FileOutputStream(fileName);
+//		try {
+//			DbxEntry.File downloadedFile = dbxClient.getFile("/" + fileName, null, outputStream);
+//			System.out.println("Metadata: " + downloadedFile.toString());
+//		} finally {
+//			outputStream.close();
+//		}
+//	}
 
-	public void downloadFromDropbox(String fileName) throws DbxException,
-			IOException {
-		FileOutputStream outputStream = new FileOutputStream(fileName);
-		try {
-			DbxEntry.File downloadedFile = dbxClient.getFile("/" + fileName, null, outputStream);
-			System.out.println("Metadata: " + downloadedFile.toString());
-		} finally {
-			outputStream.close();
-		}
-	}
-
-	
-    @Override
-    public boolean salvar(String token, String email, Date data, String nomeGrupo, List<String> nomeUsu, String mensagem) {
-        return true;
-    }
-    
-    
 }

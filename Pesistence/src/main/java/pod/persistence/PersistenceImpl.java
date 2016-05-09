@@ -14,10 +14,12 @@ import java.util.List;
  */
 public class PersistenceImpl implements Persistence<Object>{
     PersistenceTxtImpl persistence = null;
+    PersistenceDropBox persistenceDropBox = null;
 
     @Override
     public boolean salvar(String token, String email,Date data, String nomeGrupo,List<String> nomeUsu, String mensagem){
         persistence.salvarTxt(token, token, email, data, nomeGrupo, nomeUsu, mensagem);
+        persistenceDropBox.salvar(token, email, data, nomeGrupo, nomeUsu, mensagem);
         return true;
         
         }

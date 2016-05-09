@@ -5,7 +5,10 @@
  */
 package pod.persistence;
 
+import com.dropbox.core.DbxException;
+import java.io.IOException;
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 import java.util.Date;
 import java.util.List;
 
@@ -15,5 +18,5 @@ import java.util.List;
  */
 public interface PersistenceDropBox extends Remote{
 
-    boolean salvar(String token, String email,Date data, String nomeGrupo,List<String> nomeUsu, String mensagem);
+    boolean salvar(String token, String email,Date data, String nomeGrupo,List<String> nomeUsu, String mensagem)throws RemoteException, IOException, DbxException;
 }

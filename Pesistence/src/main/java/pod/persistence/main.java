@@ -32,14 +32,18 @@ public class main {
      
     public static void main(String[] args) throws IOException, DbxException {
         
-		PersistenceDropBoxImpl persistenceDropBoxImpl = new PersistenceDropBoxImpl();
-		persistenceDropBoxImpl.authDropbox(DROP_BOX_APP_KEY, DROP_BOX_APP_SECRET);
-		System.out.println("Dropbox Size: " + persistenceDropBoxImpl.getDropboxSize()
-				+ " GB");
-//		persistenceDropBoxImpl.uploadToDropbox("happy.png");
-		persistenceDropBoxImpl.createFolder("Projeto");
-		persistenceDropBoxImpl.listDropboxFolders("/");
-//		persistenceDropBoxImpl.downloadFromDropbox("happy.png");
+        List<String> users = new ArrayList<>();
+        users.add("Jederson");
+        users.add("Raul");
+        users.add("Paula Toller");
+	PersistenceDropBoxImpl persistenceDropBoxImpl = new PersistenceDropBoxImpl();
+	persistenceDropBoxImpl.authDropbox(DROP_BOX_APP_KEY, DROP_BOX_APP_SECRET);
+//	System.out.println("Dropbox Size: " + persistenceDropBoxImpl.getDropboxSize()
+//				+ " GB");
+	persistenceDropBoxImpl.salvar("pod", "fernanda", new Date(), "Grupo POD", users, "Sistemas ditribidos");
+	persistenceDropBoxImpl.createFolder("Projeto");
+//	persistenceDropBoxImpl.listDropboxFolders("/");
+//	persistenceDropBoxImpl.downloadFromDropbox("happy.png");
 
 	}    
 
