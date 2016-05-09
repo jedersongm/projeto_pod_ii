@@ -8,17 +8,15 @@ package pod.sender;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.InetSocketAddress;
+import java.net.NoRouteToHostException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.rmi.ConnectIOException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import pod.receiver.Receiver;
 
 /**
@@ -27,7 +25,7 @@ import pod.receiver.Receiver;
  */
 public class SenderImpl extends UnicastRemoteObject implements Sender {
 
-    private String addressReceiver = "192.168.0.103";
+    private String addressReceiver = "192.168.2.10";
 
     public SenderImpl() throws RemoteException {
         super();
@@ -69,10 +67,8 @@ public class SenderImpl extends UnicastRemoteObject implements Sender {
                 }
             }
 
-        } catch (IOException ex) {
+        } catch (IOException | NotBoundException | InterruptedException ex) {
             ex.printStackTrace();
-        } catch (NotBoundException ex) {
-           ex.printStackTrace();
         } finally {
             try {
                 //fecha o servidor socket - encerra o servidor
@@ -83,16 +79,22 @@ public class SenderImpl extends UnicastRemoteObject implements Sender {
         }
     }
 
-    public void dispatcher(Socket socket, String command) throws IOException, RemoteException, NotBoundException {
+    public void dispatcher(Socket socket, String command) throws IOException, RemoteException, NotBoundException, InterruptedException {
         System.out.println(command);
         String comm[] = command.trim().split(":-:");
 
         if (comm[0].equals("CADASTRAR")) {
                 //chama método cadastrar     
+               
                 String reploy = null;
-                //do {
-                    reploy = lookupReceiver().signup(comm[2], comm[1]);
-              //  } while (reploy != null);
+                do {
+                    try{
+                        reploy = lookupReceiver().signup(comm[2], comm[1]);
+                        Thread.sleep(2000);
+                    }catch(RemoteException ex){
+                        reploy = lookupReceiver().signup(comm[2], comm[1]);
+                    }
+                } while (reploy == null);
 
                 socket.getOutputStream().write(reploy.getBytes());
                 socket.getOutputStream().flush();
@@ -105,7 +107,8 @@ public class SenderImpl extends UnicastRemoteObject implements Sender {
             String reploy = null;
                 do {
                     reploy = lookupReceiver().singin(comm[1]);
-                } while (reploy != null);
+                    Thread.sleep(2000);
+                } while (reploy == null);
 
                 socket.getOutputStream().write(reploy.getBytes());
                 socket.getOutputStream().flush();
@@ -118,7 +121,8 @@ public class SenderImpl extends UnicastRemoteObject implements Sender {
             String reploy = null;
                 do {
                     reploy = lookupReceiver().subscriber(comm[1], comm[2]);
-                } while (reploy != null);
+                    Thread.sleep(2000);
+                } while (reploy == null);
 
                 socket.getOutputStream().write(reploy.getBytes());
                 socket.getOutputStream().flush();
@@ -130,7 +134,8 @@ public class SenderImpl extends UnicastRemoteObject implements Sender {
             String reploy = null;
                 do {
                     reploy = lookupReceiver().signup(comm[2], comm[1]);
-                } while (reploy != null);
+                    Thread.sleep(2000);
+                } while (reploy == null);
 
                 socket.getOutputStream().write(reploy.getBytes());
                 socket.getOutputStream().flush();
@@ -142,7 +147,8 @@ public class SenderImpl extends UnicastRemoteObject implements Sender {
             String reploy = null;
                 do {
                     reploy = lookupReceiver().logout(comm[1]);
-                } while (reploy != null);
+                    Thread.sleep(2000);
+                } while (reploy == null);
 
                 socket.getOutputStream().write(reploy.getBytes());
                 socket.getOutputStream().flush();

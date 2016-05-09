@@ -18,13 +18,13 @@ import pod.receiver.Receiver;
 public class Main {
     
     public static void main(String[] args) throws RemoteException, NotBoundException {
-  //      Sender send = new SenderImpl();
-  //      send.commandFromClient();
+        Sender send = new SenderImpl();
+        send.commandFromClient();
   
-   Registry registry = LocateRegistry.getRegistry("localhost", 8475);
-   Receiver receiver = (Receiver) registry.lookup("Receiver");
-   String result = receiver.singin("jederson@gmail.com");
-   System.out.println(result);
+//   Registry registry = LocateRegistry.getRegistry("localhost", 8475);
+//   Receiver receiver = (Receiver) registry.lookup("Receiver");
+//   String result = receiver.singin("jederson@gmail.com");
+//   System.out.println(result);
     
     }
 }
