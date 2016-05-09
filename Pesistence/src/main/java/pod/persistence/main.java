@@ -41,7 +41,7 @@ public class main {
 //	System.out.println("Dropbox Size: " + persistenceDropBoxImpl.getDropboxSize()
 //				+ " GB");
 	persistenceDropBoxImpl.salvar("pod", "fernanda", new Date(), "Grupo POD", users, "Sistemas ditribidos");
-	persistenceDropBoxImpl.createFolder("Projeto");
+//	persistenceDropBoxImpl.createFolder("Projeto");
 //	persistenceDropBoxImpl.listDropboxFolders("/");
 //	persistenceDropBoxImpl.downloadFromDropbox("happy.png");
 

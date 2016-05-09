@@ -5,6 +5,9 @@
  */
 package pod.persistence;
 
+import com.dropbox.core.DbxException;
+import java.io.IOException;
+import java.rmi.RemoteException;
 import java.util.Date;
 import java.util.List;
 
@@ -17,7 +20,7 @@ public class PersistenceImpl implements Persistence<Object>{
     PersistenceDropBox persistenceDropBox = null;
 
     @Override
-    public boolean salvar(String token, String email,Date data, String nomeGrupo,List<String> nomeUsu, String mensagem){
+    public boolean salvar(String token, String email,Date data, String nomeGrupo,List<String> nomeUsu, String mensagem) throws RemoteException, DbxException, IOException{
         persistence.salvarTxt(token, token, email, data, nomeGrupo, nomeUsu, mensagem);
         persistenceDropBox.salvar(token, email, data, nomeGrupo, nomeUsu, mensagem);
         return true;

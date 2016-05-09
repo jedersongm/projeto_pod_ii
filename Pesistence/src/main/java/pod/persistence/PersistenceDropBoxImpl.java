@@ -49,12 +49,12 @@ public class PersistenceDropBoxImpl extends UnicastRemoteObject implements Persi
 		DbxRequestConfig dbxRequestConfig = new DbxRequestConfig("JavaDropbox", Locale.getDefault().toString());
 		DbxWebAuthNoRedirect dbxWebAuthNoRedirect = new DbxWebAuthNoRedirect(dbxRequestConfig, dbxAppInfo);
 		String authorizeUrl = dbxWebAuthNoRedirect.start();
-		System.out.println("1. Authorize: Go to URL and click Allow : "+ authorizeUrl);
-		System.out.println("2. Auth Code: Copy authorization code and input here ");
-		String dropboxAuthCode = new BufferedReader(new InputStreamReader(System.in)).readLine().trim();
-		DbxAuthFinish authFinish = dbxWebAuthNoRedirect.finish(dropboxAuthCode);
-		String authAccessToken = authFinish.getAccessToken();
-		dbxClient = new DbxClientV1(dbxRequestConfig, authAccessToken);
+//		System.out.println("1. Authorize: Go to URL and click Allow : "+ authorizeUrl);
+//		System.out.println("2. Auth Code: Copy authorization code and input here ");
+//		String dropboxAuthCode = new BufferedReader(new InputStreamReader(System.in)).readLine().trim();
+//		DbxAuthFinish authFinish = dbxWebAuthNoRedirect.finish(dropboxAuthCode);
+//		String authAccessToken = authFinish.getAccessToken();
+		dbxClient = new DbxClientV1(dbxRequestConfig, tokenApp);
 		System.out.println("Dropbox Account Name: "
 				+ dbxClient.getAccountInfo().displayName);
 
