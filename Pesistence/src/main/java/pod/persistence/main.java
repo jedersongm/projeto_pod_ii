@@ -40,11 +40,13 @@ public class main {
 	persistenceDropBoxImpl.authDropbox(DROP_BOX_APP_KEY, DROP_BOX_APP_SECRET);
 //	System.out.println("Dropbox Size: " + persistenceDropBoxImpl.getDropboxSize()
 //				+ " GB");
-	persistenceDropBoxImpl.salvar("pod", "fernanda", new Date(), "Grupo POD", users, "Sistemas ditribidos");
+//	persistenceDropBoxImpl.salvar("DAC", "fernanda", new Date(), "Grupo POD", users, "Sistemas ditribidos");
 //	persistenceDropBoxImpl.createFolder("Projeto");
 //	persistenceDropBoxImpl.listDropboxFolders("/");
 //	persistenceDropBoxImpl.downloadFromDropbox("happy.png");
 
+        persistenceDropBoxImpl.list("/Projeto");
+//        persistenceDropBoxImpl.listaMensagens();
 	}    
 
 }

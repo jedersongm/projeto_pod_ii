@@ -24,6 +24,7 @@ import java.io.InputStreamReader;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -121,14 +122,27 @@ public class PersistenceDropBoxImpl extends UnicastRemoteObject implements Persi
 		dbxClient.createFolder("/" + folderName);
 	}
 
-//	public void listDropboxFolders(String folderPath) throws DbxException {
-//		DbxEntry.WithChildren listing = dbxClient.getMetadataWithChildren(folderPath);
-//		System.out.println("Files List:");
-//		for (DbxEntry child : listing.children) {
-//			System.out.println("	" + child.name + ": " + child.toString());
-//		}
-//	}
+        @Override
+	public void list(String folderPath) throws DbxException, RemoteException {
+		DbxEntry.WithChildren listing = dbxClient.getMetadataWithChildren(folderPath);
+                
+		System.out.println("Files List:");
+		for (DbxEntry child : listing.children) {
+			System.out.println("	" + child.name);
+                        System.out.println(child.asFile());
+		}
+	}
 //
+        public void listaMensagens(){
+            File file = new File("/");
+            File[] arquivos = file.listFiles();
+            
+            for (File listFile1 : arquivos) {
+                System.out.println(listFile1.getName());
+                
+            }
+           
+        }
 //	public void downloadFromDropbox(String fileName) throws DbxException,
 //			IOException {
 //		FileOutputStream outputStream = new FileOutputStream(fileName);
@@ -140,4 +154,16 @@ public class PersistenceDropBoxImpl extends UnicastRemoteObject implements Persi
 //		}
 //	}
 
+    @Override
+    public boolean remove(String token) throws RemoteException{
+        return true;}
+
+    @Override
+    public void atualizar(String t) throws RemoteException{
+        }
+
+    @Override
+    public void buscar() throws RemoteException{
+        }
+    
 }

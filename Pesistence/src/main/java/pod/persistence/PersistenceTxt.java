@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @author NandaPC
  */
-public interface PersistenceTxt {
+public interface PersistenceTxt extends Persistence{
 
     boolean salvarTxt(String token, String nome, String email,Date data, String nomeGrupo,List<String> nomeUsu, String mensagem);
     boolean removeTxt(String token);

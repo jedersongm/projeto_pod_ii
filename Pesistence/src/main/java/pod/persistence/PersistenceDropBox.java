@@ -6,6 +6,7 @@
 package pod.persistence;
 
 import com.dropbox.core.DbxException;
+import com.dropbox.core.v1.DbxEntry;
 import java.io.IOException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -16,7 +17,15 @@ import java.util.List;
  *
  * @author NandaPC
  */
-public interface PersistenceDropBox extends Remote{
+public interface PersistenceDropBox extends Persistence{
 
+    @Override
     boolean salvar(String token, String email,Date data, String nomeGrupo,List<String> nomeUsu, String mensagem)throws RemoteException, IOException, DbxException;
+    void  list(String folder) throws DbxException, RemoteException;
+    @Override
+    boolean remove(String token) throws RemoteException;
+    @Override
+    void atualizar(String t) throws RemoteException;
+    @Override
+    void buscar() throws RemoteException;
 }

@@ -19,8 +19,8 @@ import java.util.List;
  */
 public interface Persistence extends Remote{
     boolean salvar(String token, String email,Date data, String nomeGrupo,List<String> nomeUsu, String mensagem)throws RemoteException, DbxException, IOException;
-    boolean remove(String token) throws RemoteException;
-    void atualizar(String t)throws RemoteException;
-    void buscar()throws RemoteException;
+    boolean remove(String token);
+    void atualizar(String t);
+    void buscar();
     
 }

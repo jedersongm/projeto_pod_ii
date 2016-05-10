@@ -5,6 +5,7 @@
  */
 package pod.persistence;
 
+import com.dropbox.core.DbxException;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -97,6 +98,26 @@ public class PersistenceTxtImpl implements PersistenceTxt {
 //        }
         return arquivos;
 
+    }
+
+    @Override
+    public boolean salvar(String token, String email, Date data, String nomeGrupo, List<String> nomeUsu, String mensagem) throws RemoteException, DbxException, IOException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean remove(String token) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void atualizar(String t) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void buscar() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

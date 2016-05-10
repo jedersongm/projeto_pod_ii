@@ -15,7 +15,7 @@ import java.util.List;
  *
  * @author NandaPC
  */
-public class PersistenceImpl implements Persistence<Object>{
+public class PersistenceImpl implements Persistence{
     PersistenceTxtImpl persistence = null;
     PersistenceDropBox persistenceDropBox = null;
 
@@ -32,14 +32,14 @@ public class PersistenceImpl implements Persistence<Object>{
         persistence.removeTxt(token);
         return true;
         }
-
+    
     @Override
-    public void atualizar(Object t) {
+    public void atualizar(String t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Object> buscar() {
+    public void buscar() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
