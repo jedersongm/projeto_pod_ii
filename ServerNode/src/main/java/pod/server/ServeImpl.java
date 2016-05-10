@@ -19,7 +19,7 @@ public class ServeImpl extends UnicastRemoteObject implements Server{
 
     @Override
     public String processMensage(String mensagem) {
-            return ;   
+            return "" ;   
     }
 
     
