@@ -25,7 +25,7 @@ import pod.receiver.Receiver;
  */
 public class SenderImpl extends UnicastRemoteObject implements Sender {
 
-    private String addressReceiver = "192.168.2.10";
+    private String addressReceiver = "localhost";
 
     public SenderImpl() throws RemoteException {
         super();

@@ -17,7 +17,7 @@ import java.rmi.registry.Registry;
 public class Main {
 
     public static void main(String[] args) throws RemoteException, AlreadyBoundException {
-        System.setProperty("java.rmi.server.hostname", "192.168.2.10");
+        //System.setProperty("java.rmi.server.hostname", "192.168.2.10");
         Receiver receiver = new ReceiverImpl();
 
         Registry registry = LocateRegistry.createRegistry(8475);

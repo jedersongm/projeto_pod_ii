@@ -33,17 +33,17 @@ and open the template in the editor.
             <div class="row">
                 <div class="col-md-5">
                     <h3>Login</h3>
-                    <form action="login.php" method="post" role="form" class="form-inline">
+                    <form action="login.php" method="post" role="form">
                         <div class="form-group">
                             <label for="email">Email:</label>
-                            <input type="email" class="form-control" id="email">
+                            <input type="email" class="form-control" name="email" id="email">
                         </div>
                         <button type="submit" value="Login">Login</button>
                     </form>
                 </div>
                 <div class="col-md-5">
                     <h3>Cadastre-se</h3>
-                    <form action="cadastro.php" method="POST">
+                    <form action="cadastro.php" method="POST" role="form">
                         <div class="form-group">
                             <label for="name">Name:</label>
                             <input type="text" id="name" name="name" class="form-control" required/>
